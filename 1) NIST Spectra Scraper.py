@@ -86,13 +86,11 @@ def get_all_IR():
                 formulae.append(entry.split()[-2])
             except:
                 IDs.append(entry.strip())
-    """
     #NOTE: Change threadpool as you need
     with ThreadPool(8) as pool:
-        list(tqdm.tqdm(pool.imap(retreive_data_from_formula, formulae)))
+        list(tqdm.tqdm(pool.imap(retreive_data_from_formula, formulae), total=len(formulae)))
     print("Done with formulas!")
-    """
-    for nistid in IDs:
+    for nistid in tqdm.tqdm(IDs, total=len(IDs)):
         get_mol(nistid)
         get_jdx(nistid)
     print("Done Scraping Data!")
